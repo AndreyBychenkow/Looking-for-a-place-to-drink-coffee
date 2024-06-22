@@ -7,8 +7,6 @@ from dotenv import load_dotenv
 from flask import Flask
 from geopy import distance
 
-APIKEY = "f5159a26-d044-4bca-ac76-24eac1abc18e"
-
 
 def fetch_coordinates(apikey, address):
     base_url = "https://geocode-maps.yandex.ru/1.x"
@@ -46,11 +44,12 @@ def hello_world():
 
 
 def main():
-    address = input("Где вы находитесь ? ")
-    coords = fetch_coordinates(APIKEY, address)
-
     load_dotenv()
     path_file = os.getenv("PATH_FILE")
+    api_key = os.getenv("API_KEY")
+
+    address = input("Где вы находитесь ? ")
+    coords = fetch_coordinates(api_key, address)
 
     with open(path_file, "r", encoding="cp1251") as my_file:
         cafes = my_file.read()
